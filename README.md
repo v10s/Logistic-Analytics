@@ -5,6 +5,8 @@ A data science app which is analyzing logistic data
 
 - Add postgres credentials in config.yaml file
 
+#### Data sources
+ - Amazon data
 
 
 ## ETL flow

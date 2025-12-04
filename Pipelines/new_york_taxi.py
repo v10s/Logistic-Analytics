@@ -1,26 +1,20 @@
 import yaml
-
 from server.connector.postgres import PostgresConnector
 import pandas as pd
 import dask.dataframe as dd
 import matplotlib.pyplot as plt
 import numpy as np
+from base_pipeline import BaseETL
 
-class NewYorkTaxiETL:
+class NewYorkTaxiETL(BaseETL):
 
     def __init__(self):
+        super().__init__()
         self.df = pd.read_parquet('./.seed_data/yellow_tripdata_2025-01.parquet', engine='pyarrow')
-        with open('../config.yaml', 'r') as file:
-            data = yaml.safe_load(file)
-        host = data['postgres']['host']
-        database = data['postgres']['database']
-        user = data['postgres']['user']
-        password = data['postgres']['password']
-        port = int(data['postgres']['port'])
 
-        self.p_connect = PostgresConnector(host=host, database=database, user=user, password=password, port=port)
 
     def run(self):
+        super().run()
         self.fastest_vendor()
         self.vendor_expense()
         self.vendor_rides()
